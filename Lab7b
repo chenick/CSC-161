@@ -1,0 +1,60 @@
+from graphics import *
+
+def main():
+# Create graphics window
+    win = GraphWin("Drawing a House")
+    win.setCoords(0.0, 0.0, 10.0, 10.0)
+    message = Text(Point(5.0, 0.40), "Click lower left corner of house")
+    message.draw(win)  
+# First 2 clicks wil be the corners of the rectangular frame of house
+    p1 = win.getMouse()
+    p1.draw(win)
+    message.setText("Click upper right corner of house")
+    p2 = win.getMouse()
+    p2.draw(win)
+    BaseHouse = Rectangle(Point(p1.getX(), p1.getY()), Point(p2.getX(), p2.getY()))
+    BaseHouse.draw(win)
+    BaseHouse.setFill('blue')
+# Third click indicates the centor of top edge of rectangular door
+    message.setText("Click in house to create door")
+    doorwidth = ((p2.getX())-(p1.getX()))/5
+    p3 = win.getMouse()
+    if (p3.getX()-(doorwidth/2))<(p1.getX()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p3 = win.getMouse()
+    if (p3.getX()+(doorwidth/2))>(p2.getX()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p3 = win.getMouse()
+    if (p3.getY())>(p2.getY()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p3 = win.getMouse()
+    Door = Rectangle(Point((p3.getX())-(doorwidth/2), p1.getY()), Point((p3.getX())+(doorwidth/2), p3.getY()))
+    Door.draw(win)
+    Door.setFill('red')
+# Fourth clik indicates the center of a square window
+    message.setText("Click in house to create a window")
+    windowwidth = doorwidth/2
+    p6 = win.getMouse()
+    if (p6.getX()-(windowwidth/2))<(p1.getX()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p6 = win.getMouse()
+    if (p6.getX()+(windowwidth/2))>(p2.getX()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p6 = win.getMouse()
+    if (p6.getY()+(windowwidth/2))>(p2.getY()):
+        message.setText("PLEASE RE-CLICK WITHIN HOUSE")
+        p6 = win.getMouse()
+    Window = Rectangle(Point((p6.getX())-(windowwidth/2), (p6.getY())-(windowwidth/2)), Point((p6.getX())+(windowwidth/2), (p6.getY())+(windowwidth/2)))
+    Window.draw(win)
+    Window.setFill('green')
+# Fifth click indicates the peak of the roof
+    message.setText("Click above house to draw roof")
+    p11 = win.getMouse()
+    Roof = Polygon(Point(p1.getX(), p2.getY()), Point(p11.getX(), p11.getY()), Point(p2.getX(), p2.getY()))
+    Roof.draw(win)
+    Roof.setFill('yellow')
+# Sixth click to close the graphics window
+    message.setText("Click anywhere to quit")
+    win.getMouse()
+    win.close()
+main()
