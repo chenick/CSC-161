@@ -1,0 +1,22 @@
+def main():
+    print("To play Guess My Number, please pick a number between 0 and 100 that I "
+    "will attempt to guess. Please indicate if the guess is 'Too High', 'Too Low' " 
+    "or 'Correct'. Input is case sensitive.")
+    lowerbound = 0
+    upperbound = 100
+    guess_status = False
+    while guess_status == False:
+        guess = (upperbound + lowerbound)//2
+        print("I guess that your number is "+ str(guess))
+        feedback = input("Too High, Too Low, or Correct? ")
+        if feedback == "Too High":
+            upperbound = guess
+        elif feedback == "Too Low":
+            lowerbound = guess
+        elif feedback == "Correct":
+            guess_status = True
+        else:
+            feedback = input("Invalid response. Please try again by typing either 'Too High', 'Too Low', or 'Correct': ")
+            if feedback == "Correct":
+                guess_status == True
+    print("I have succesfully guessed your number.")
