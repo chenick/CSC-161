@@ -1,0 +1,42 @@
+def main():
+    # Print a header
+    print("This is a Caesar Cipher which decrypts messages.")
+
+    # Prompt the user to enter the name of the file with the encrypted
+    # message, the decode key, and the name of the file to store the decrypted
+    # message.
+    file_name = input("What is the name of the file with encrypted message? ")
+    decode_key = eval(input("What is the decode key? "))
+    new_file_name = input("In what file would you like to store the decrypted message? ")
+    decrypted_message = ""
+    
+    # Read the encrypted message from the file
+    a = open(file_name, 'r')
+    b = a.read()
+    c = b.lower()
+
+    # Use decode key to shift characters in encrypted message to generate
+    # new string corresponding to decrypted message
+    index=0
+    
+    indexalpha = "abcdefghijklmnopqrstuvwxyz"
+    for character in c:
+        if character in indexalpha:
+            index = indexalpha.find(character)
+            if (index+decode_key) < 26:
+                decrypted_message = decrypted_message + indexalpha[index+decode_key]
+            else:
+                decrypted_message = decrypted_message + indexalpha[(index+decode_key)-26]
+        else:
+            decrypted_message = decrypted_message + character
+            
+    # Save the decrypted message in second file
+    new_file = open(new_file_name, 'w')
+    new_file.write(decrypted_message)
+    new_file.close()
+
+    # Print the encrypted and decrypted messages on the screen
+    print("Encrypted Message: " + c)
+    print("Decrypted Message: " + decrypted_message)
+   
+    a.close()
