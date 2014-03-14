@@ -1,0 +1,55 @@
+def main():
+    print("This is a retirement calculator. Please provide information on your retirement investments.")
+    starting_balance = input("What is the starting balance of the account? ")               #Extra Credit
+    annual_deposit = input("What is the annual deposit you plan to make each year? ")
+    deposit_years = eval(input("How many years will you be making this deposit for? "))     #Extra Credit
+    years_to_retirement = eval(input("In how many years do you plan to retire? "))
+    interest_rate = input("What annual percent interest will your money earn? ")
+
+    for character in annual_deposit:                                                        #code enabling "$" and ","
+        if character == "$":
+            annual_deposit = annual_deposit.replace("$","")
+        if character == ",":
+            annual_deposit = annual_deposit.replace(",","")
+    annual_deposit = eval(annual_deposit)
+
+    for character in starting_balance:                                                      #code enabling "$" and ","                      
+        if character == "$":
+           starting_balance = starting_balance.replace("$","")
+        if character == ",":
+            starting_balance = starting_balance.replace(",","")
+    starting_balance = eval(starting_balance)
+    
+    for character in interest_rate:                                                         #code enabling "%"
+        if character == "%":
+            interest_rate = interest_rate.replace("%","")
+    interest_rate = eval(interest_rate)
+    interest_rate = (interest_rate/100)
+
+    monthly_rate = (interest_rate/12)
+
+    account_value_annually = starting_balance
+    account_value_monthly = starting_balance
+
+    for year in range(0, deposit_years):
+        account_value_annually = account_value_annually + annual_deposit + ((account_value_annually + annual_deposit) * interest_rate)
+
+    for year in range(deposit_years, years_to_retirement):
+        account_value_annually = account_value_annually + (account_value_annually * interest_rate)
+        
+    for year in range(0, deposit_years):
+        account_value_monthly = account_value_monthly + annual_deposit
+        for x in range(0, 12):
+            account_value_monthly = account_value_monthly + (account_value_monthly * monthly_rate)  
+
+    for year in range(deposit_years, years_to_retirement):
+        for x in range(0,12):
+            account_value_monthly = account_value_monthly + (account_value_monthly * interest_rate)
+
+    difference = account_value_monthly - account_value_annually
+
+    print("Your retirement account value, compounded annually, will be $%.2f" % account_value_annually)
+    print("Your retirement account value, compounded monthly, will be $%.2f" % account_value_monthly)
+    print("Compounding monthly offers a superior return by $%.2f" % difference)
+
+    
