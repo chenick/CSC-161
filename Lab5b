@@ -1,0 +1,134 @@
+RNA1 = ['A','U','G','U','G','G','G','U','C','C','A','C','G','A','C','U','C','G','U','C','G','U','C','U','A','C','U','A','G','A']
+RNA2 = ['C','U','G','A','C','G','A','C','U','A','U','A','A','G','G','G','U','C','A','A','G','C']
+
+def main(RNA, Start1, End1, Start2, End2): 
+    def MatchSequences(Sequence1, Sequence2):    #takes in sub-lists, returns matching pairs
+        k = 0
+        pair = 0
+        while k < len(Sequence1):
+            if Sequence1[k] == 'A':
+                if Sequence2[k] == 'U':
+                    pair = pair + 1
+            if Sequence1[k] == 'C':
+                if Sequence2[k] == 'G':
+                    pair = pair + 1
+            if Sequence1[k] == 'G':
+                if Sequence2[k] == 'C':
+                    pair = pair + 1
+            if Sequence1[k] == 'U':
+                if Sequence2[k] == 'A':
+                    pair = pair + 1
+            k = k + 1
+        print(str(pair) + " pairs were found.")
+
+    def MatchRNA(RNA, Start1, End1, Start2, End2): #takes in list of RNA, returns matching pairs of created sub-lists
+        Sequence1 = []
+        Sequence2 = []
+        c = Start1
+        h = Start2
+
+        if Start2 <= End2:
+            while c != End1 + 1:
+                Sequence1 = Sequence1 + [RNA[c]]
+                c = c + 1
+            while h != End2 + 1:
+                Sequence2 = Sequence2 + [RNA[h]]
+                h = h + 1
+            MatchSequences(Sequence1, Sequence2)
+
+        if Start2 > End2:
+            while c != End1 + 1:
+                Sequence1 = Sequence1 + [RNA[c]]
+                c = c + 1
+            while h != End2 - 1:
+                Sequence2 = Sequence2 + [RNA[h]]
+                h = h - 1
+            MatchSequences(Sequence1, Sequence2)
+    
+
+    def EnergyRNA(RNA, Start1, End1, Start2, End2): # takes in list of RNA, returns energy and matching pairs
+        k = 0
+        mismatch = 0
+        pair = 0
+        energy = 0.00
+        Sequence1 = []
+        Sequence2 = []
+        c = Start1
+        h = Start2
+
+        if Start2 <= End2:
+            while c != End1 + 1:
+                Sequence1 = Sequence1 + [RNA[c]]
+                c = c + 1
+            while h != End2 + 1:
+                Sequence2 = Sequence2 + [RNA[h]]
+                h = h + 1
+            while k < len(Sequence1):
+                if Sequence1[k] == 'A':
+                    if Sequence2[k] == 'U':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'C':
+                    if Sequence2[k] == 'G':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'G':
+                    if Sequence2[k] == 'C':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'U':
+                    if Sequence2[k] == 'A':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if mismatch == 1:
+                    energy = energy
+                else:
+                    mismatch = 1
+                    energy = energy + 3.5
+                k = k + 1
+            print("Energy is " + str(energy))
+            print(str(pair) + " pairs were found.")
+
+        if Start2 > End2:
+            while c != End1 + 1:
+                Sequence1 = Sequence1 + [RNA[c]]
+                c = c + 1
+            while h != End2 - 1:
+                Sequence2 = Sequence2 + [RNA[h]]
+                h = h - 1
+            while k < len(Sequence1):
+                if Sequence1[k] == 'A':
+                    if Sequence2[k] == 'U':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'C':
+                    if Sequence2[k] == 'G':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'G':
+                    if Sequence2[k] == 'C':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if Sequence1[k] == 'U':
+                    if Sequence2[k] == 'A':
+                        pair = pair + 1
+                        energy = energy - 1.8
+                        mismatch = 0
+                if mismatch == 1:
+                    energy = energy
+                else:
+                    mismatch = 1
+                    energy = energy + 3.5
+                k = k + 1
+            print("Energy is " + str(energy))
+            print(str(pair) + " pairs were found.")
+
+
+    EnergyRNA(RNA, Start1, End1, Start2, End2)
