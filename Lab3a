@@ -1,0 +1,25 @@
+def main():
+    print("This is a retirement calculator. Please provide information on your retirement investments.")
+    annual_deposit = input("What is the annual deposit you plan to make each year? ")
+    years_to_retirement = eval(input("In how many years do you plan to retire? "))
+    interest_rate = input("What percent interest will your money earn? ")
+
+    for character in annual_deposit:                                                        #code enabling "$" and ","
+        if character == "$":
+            annual_deposit = annual_deposit.replace("$","")
+        if character == ",":
+            annual_deposit = annual_deposit.replace(",","")
+    annual_deposit = eval(annual_deposit)
+    
+    for character in interest_rate:                                                         #code enabling "%"
+        if character == "%":
+            interest_rate = interest_rate.replace("%","")
+    interest_rate = eval(interest_rate)
+    interest_rate = (interest_rate/100)
+
+    account_value = 0
+
+    for year in range(0, years_to_retirement):
+        account_value = account_value + annual_deposit + ((account_value + annual_deposit) * interest_rate)
+
+    print("Your retirement account value will be $%.2f" % account_value)                    #only shows hundredth place
