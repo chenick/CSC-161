@@ -1,0 +1,29 @@
+from TopWords import *
+
+def main():
+
+    FILE1 = input("What is the name of the first file? ")
+    FILE2 = input("What is the name of the second file? ")
+    N = eval(input("How many top words should be calculated? "))
+
+    a = open(FILE1, 'r')
+    b = open(FILE2, 'r')
+    
+    File1List = TopWords(a, N)
+    File2List = TopWords(b, N)
+
+    common_words = CompareWords(File1List, File2List)
+
+    print ('There were ' + str(common_words) + ' words in common.')
+    print ('The fraction of common words is ' + str(common_words/(float(N))))
+    
+    a.close()
+    b.close()
+
+def CompareWords(File1List, File2List):
+    same = 0
+    for x in File1List:
+        if x in File2List:
+            same = same + 1
+    return (same)
+
